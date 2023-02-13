@@ -1,0 +1,68 @@
+-- Company: 
+-- Engineer: 
+-- 
+-- Create Date: 01/09/2023 08:10:56 PM
+-- Design Name: 
+-- Module Name: mux2_test - Behavioral
+-- Project Name: 
+-- Target Devices: 
+-- Tool Versions: 
+-- Description: 
+-- 
+-- Dependencies: 
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+-- 
+----------------------------------------------------------------------------------
+
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--use IEEE.NUMERIC_STD.ALL;
+
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx leaf cells in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
+
+entity mux2_test is
+--  Port ( );
+end mux2_test;
+
+architecture Behavioral of mux2_test is
+component mux2 is
+    Port ( i0 : in STD_LOGIC;
+           i1 : in STD_LOGIC;
+           a : in STD_LOGIC;
+           y : out STD_LOGIC);
+end component mux2;
+
+signal s1,s2,s3,so:std_logic;
+
+begin
+UTT: mux2 port map(i0=>s1,i1=>s2,a=>s3,y=>so);
+
+generate_i0 :process
+begin
+s1 <= '0'; wait for 1 ns;
+s1 <= '1'; wait for 1 ns;
+end process;
+
+generate_i1 :process
+begin
+s2 <= '0'; wait for 2 ns;
+s2 <= '1'; wait for 2 ns;
+end process;
+
+generate_a :process
+begin
+s3 <= '0'; wait for 4 ns;
+s3 <= '1'; wait for 4 ns;
+end process;
+
+end Behavioral;
