@@ -1,0 +1,62 @@
+-- Company: 
+-- Engineer: 
+-- 
+-- Create Date: 01/09/2023 08:04:24 PM
+-- Design Name: 
+-- Module Name: and2_test - Behavioral
+-- Project Name: 
+-- Target Devices: 
+-- Tool Versions: 
+-- Description: 
+-- 
+-- Dependencies: 
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+-- 
+----------------------------------------------------------------------------------
+
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--use IEEE.NUMERIC_STD.ALL;
+
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx leaf cells in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
+
+entity and2_test is
+--  Port ( );
+end and2_test;
+
+architecture Behavioral of and2_test is
+
+component and2 is
+    Port ( a : in STD_LOGIC;
+           b : in STD_LOGIC;
+           f : out STD_LOGIC);
+end component and2;
+
+signal s1,s2,so: std_logic;
+
+begin
+UTT: and2 port map(a=>s1,b=>s2,f=>so);
+
+generate_a :process
+begin
+s1 <= '0'; wait for 2 ns;
+s1 <= '1'; wait for 2 ns;
+end process;
+
+generate_b :process
+begin
+s2 <= '0'; wait for 1 ns;
+s2 <= '1'; wait for 1 ns;
+end process;
+
+end Behavioral;
