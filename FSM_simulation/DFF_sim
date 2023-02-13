@@ -1,0 +1,69 @@
+-- Company: 
+-- Engineer: 
+-- 
+-- Create Date: 01/09/2023 08:31:04 PM
+-- Design Name: 
+-- Module Name: dff_test - Behavioral
+-- Project Name: 
+-- Target Devices: 
+-- Tool Versions: 
+-- Description: 
+-- 
+-- Dependencies: 
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+-- 
+----------------------------------------------------------------------------------
+
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--use IEEE.NUMERIC_STD.ALL;
+
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx leaf cells in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
+
+entity dff_test is
+--  Port ( );
+end dff_test;
+
+architecture Behavioral of dff_test is
+
+component dff is
+    Port ( d : in STD_LOGIC;
+           ck : in STD_LOGIC;
+           r : in STD_LOGIC;
+           q : out STD_LOGIC;
+           qn : out STD_LOGIC);
+end component dff;
+
+signal d_int,clk,reset,q_out,qn_out: std_logic;
+begin
+UTT: dff port map(d=>d_int,ck=>clk,r=>reset,q=>q_out,qn=>qn_out);
+
+generate_ck: process
+begin
+clk <= '0'; wait for 1 ns;
+clk <= '1'; wait for 1 ns;
+end process;
+
+generate_r: process
+begin
+reset <= '0'; wait for 0.5 ns;
+reset <= '1'; wait for 10 ns;
+end process;
+
+generate_d: process
+begin
+d_int <= '0'; wait for 2 ns;
+d_int <= '1'; wait for 2 ns;
+end process;
+
+end Behavioral;
