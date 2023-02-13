@@ -1,0 +1,100 @@
+-- Company: 
+-- Engineer: 
+-- 
+-- Create Date: 01/09/2023 12:09:15 PM
+-- Design Name: 
+-- Module Name: automat - Behavioral
+-- Project Name: 
+-- Target Devices: 
+-- Tool Versions: 
+-- Description: 
+-- 
+-- Dependencies: 
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+-- 
+----------------------------------------------------------------------------------
+
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--use IEEE.NUMERIC_STD.ALL;
+
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx leaf cells in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
+
+entity automat is
+    Port ( q : out std_logic_vector (2 downto 0);
+           ck: in STD_LOGIC;
+           r: in STD_LOGIC);
+end automat;
+
+architecture Behavioral of automat is
+
+signal not_q0,not_q1,and_out1,and_out2,yout1,yout2,yout3: std_logic;
+signal qint: std_logic_vector(2 downto 0);
+
+component inv is
+    Port ( a : in STD_LOGIC;
+           f : out STD_LOGIC);
+end component inv;
+
+component dff is
+    Port ( d : in STD_LOGIC;
+           ck : in STD_LOGIC;
+           r : in STD_LOGIC;
+           q : out STD_LOGIC;
+           qn : out STD_LOGIC);
+end component dff;
+
+component mux2 is
+    Port ( i0 : in STD_LOGIC;
+           i1 : in STD_LOGIC;
+           a : in STD_LOGIC;
+           y : out STD_LOGIC);
+end component mux2;
+
+component or2 is
+    Port ( in1 : in STD_LOGIC;
+           in2 : in STD_LOGIC;
+           f : out STD_LOGIC);
+end component or2;
+
+component and2 is
+    Port ( a : in STD_LOGIC;
+           b : in STD_LOGIC;
+           f : out STD_LOGIC);
+end component and2;
+
+begin
+
+q <= qint;
+
+I1: inv port map (a=>qint(0),f=>not_q0);
+
+I2: inv port map (a=>qint(1),f=>not_q1);
+
+A1: and2 port map (a=>qint(0),b=>not_q1,f=>and_out1);
+
+A2: and2 port map (a=>qint(0),b=>qint(1),f=>and_out2);
+
+M1: mux2 port map (i0=>not_q1,i1=>not_q0,a=>qint(2),y=>yout1);
+
+M2: mux2 port map (i0=>not_q1,i1=>and_out1,a=>qint(2),y=>yout2);
+
+M3: mux2 port map (i0=>not_q0,i1=>and_out2,a=>qint(2),y=>yout3);
+
+D1: dff port map (d=>yout1,ck=>ck,r=>r,q=>qint(0));
+
+D2: dff port map (d=>yout2,ck=>ck,r=>r,q=>qint(1));
+
+D3: dff port map (d=>yout3,ck=>ck,r=>r,q=>qint(2));
+
+end Behavioral;
