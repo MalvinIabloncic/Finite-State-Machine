@@ -7,6 +7,9 @@ The Finite-state machine(FSM) can change from one state to another in response t
 An FSM is defined by a list of its states, its initial state, and the inputs that trigger each transition.
 
 
+The FSM created in this project is made of D type flip-flops, one address multiplexers and logic gates.
+ 
+
 The list of states:
 ![stari](https://user-images.githubusercontent.com/115619312/219042941-9c951eb8-c4af-4eb7-984e-5e03364e4c6c.png)
 
